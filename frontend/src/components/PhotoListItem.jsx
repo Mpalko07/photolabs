@@ -16,4 +16,4 @@ const PhotoListItem = ({ username, imageSource, id, location, profile }) => {
   );
 };
 
-export default App;
+export default PhotoListItem;
