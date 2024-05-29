@@ -13,13 +13,14 @@ const HomeRoute = ({ photos, topics }) => {
   // State to store favourited photo IDs
   const [favourites, setFavourites] = useState([]);
 
-  // Function to toggle a photo as favourite
-  const toggleFavourite = (photoId) => {
-    if (favourites.includes(photoId)) {
-      setFavourites(favourites.filter((id) => id !== photoId));
-    } else {
-      setFavourites([...favourites, photoId]);
-    }
+  // Function to add a photo to favourites
+  const addFavourite = (photoId) => {
+    setFavourites([...favourites, photoId]);
+  };
+
+  // Function to remove a photo from favourites
+  const removeFavourite = (photoId) => {
+    setFavourites(favourites.filter((id) => id !== photoId));
   };
 
   return (
