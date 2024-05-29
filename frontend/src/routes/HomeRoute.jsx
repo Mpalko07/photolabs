@@ -23,10 +23,13 @@ const HomeRoute = ({ photos, topics }) => {
     setFavourites(favourites.filter((id) => id !== photoId));
   };
 
+  // Check if there are favorited photos
+  const isFavPhotoExist = favourites.length > 0;
+
   return (
     <div className="home-route">
       <FavouritesContext.Provider value={{ favourites, addFavourite, removeFavourite }}>
-        <TopNavigationBar topics={topics} />
+        <TopNavigationBar topics={topics} isFavPhotoExist={isFavPhotoExist} />
         <PhotoList photos={photos} />
       </FavouritesContext.Provider>
     </div>
