@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useFavourites } from '../routes/HomeRoute';
 import PhotoFavButton from './PhotoFavButton';
 import '../styles/PhotoListItem.scss';
 
 const PhotoListItem = ({ username, imageSource, id, location, profile }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  // Function to toggle favorite status
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
+  const { favourites, toggleFavourite } = useFavourites();
+  const isFavorite = favourites.includes(id);
 
   return (
     <div className={`photo-list__item ${isFavorite ? 'favorite' : ''}`}>
@@ -20,7 +17,7 @@ const PhotoListItem = ({ username, imageSource, id, location, profile }) => {
         <div className="id">ID: {id}</div>
         <PhotoFavButton
           isFavorite={isFavorite}
-          toggleFavorite={toggleFavorite}
+          toggleFavorite={() => toggleFavourite(id)}
         />
       </div>
     </div>
