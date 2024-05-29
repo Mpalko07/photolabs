@@ -1,19 +1,13 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import "../styles/TopicListItem.scss";
 
-const sampleDataForTopicListItem = {
-  id: "1",
-  slug: "topic-1",
-  label: "Nature",
+const TopicListItem = ({ label }) => {
+  return <div className="topic-list__item">{label}</div>;
 };
 
-const TopicListItem = () => {
-  return (
-    <div className="topic-list__item">
-      {/* Insert React */}
-    </div>
-  );
+TopicListItem.propTypes = {
+  label: PropTypes.string.isRequired,
 };
 
 export default TopicListItem;
