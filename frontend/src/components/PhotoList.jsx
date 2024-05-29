@@ -3,7 +3,7 @@ import PhotoListItem from './PhotoListItem';
 import "../styles/PhotoList.scss";
 
 
-const PhotoList = () => {
+const PhotoList = ({ photos }) => {
   return (
     <ul className="photo-list">
       {photos.map(photo => (
