@@ -2,7 +2,9 @@ import React from 'react';
 import closeSymbol from '../assets/closeSymbol.svg';
 import '../styles/PhotoDetailsModal.scss';
 
-const PhotoDetailsModal = ({ onClose }) => {
+const PhotoDetailsModal = ({ onClose, photo }) => {
+  console.log("Photo Details:", photo);
+
   return (
     <div className="modal">
       <div className="modal-content">
