@@ -3,7 +3,7 @@ import PhotoListItem from './PhotoListItem';
 import "../styles/PhotoList.scss";
 import { useFavourites } from '../routes/HomeRoute';
 
-const PhotoList = ({ photos }) => {
+const PhotoList = ({ photos, setDisplayModal }) => { 
   const { favourites, toggleFavourite } = useFavourites();
 
   return (
@@ -18,6 +18,7 @@ const PhotoList = ({ photos }) => {
             profile={photo.user.profile}
             toggleFavorite={() => toggleFavourite(photo.id)}
             favourites={favourites}
+            setDisplayModal={setDisplayModal} 
           />
         </li>
       ))}

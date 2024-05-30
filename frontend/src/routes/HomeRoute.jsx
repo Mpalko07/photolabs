@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import TopNavigationBar from '../components/TopNavigationBar';
 import PhotoList from '../components/PhotoList';
+import PhotoDetailsModal from '../routes/PhotoDetailsModal';
 import '../styles/HomeRoute.scss';
 
 // Create a context for managing favourites
@@ -12,6 +13,8 @@ export const useFavourites = () => useContext(FavouritesContext);
 const HomeRoute = ({ photos, topics }) => {
   // State to store favourited photo IDs
   const [favourites, setFavourites] = useState([]);
+  // State to manage the modal display
+  const [displayModal, setDisplayModal] = useState(false);
 
   // Function to add a photo to favourites
   const addFavourite = (photoId) => {
@@ -30,7 +33,10 @@ const HomeRoute = ({ photos, topics }) => {
     <div className="home-route">
       <FavouritesContext.Provider value={{ favourites, addFavourite, removeFavourite }}>
         <TopNavigationBar topics={topics} isFavPhotoExist={isFavPhotoExist} />
-        <PhotoList photos={photos} />
+        {/* Pass setDisplayModal function to PhotoList */}
+        <PhotoList photos={photos} setDisplayModal={setDisplayModal} />
+        {/* Conditionally render the modal */}
+        {displayModal && <PhotoDetailsModal onClose={() => setDisplayModal(false)} />}
       </FavouritesContext.Provider>
     </div>
   );
