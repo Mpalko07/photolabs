@@ -6,11 +6,7 @@ const TopicList = ({ topics }) => {
   return (
     <ul className="topic-list">
       {topics.map((topic) => (
-        <TopicListItem
-          key={topic.id}
-          id={topic.id}
-          label={topic.title}
-        />
+        <TopicListItem key={topic.id} label={topic.title} />
       ))}
     </ul>
   );
