@@ -2,16 +2,19 @@ import React from 'react';
 import PhotoFavButton from './PhotoFavButton';
 import '../styles/PhotoListItem.scss';
 
-const PhotoListItem = ({ username, imageSource, id, location, profile, handleOpenModal }) => {
+const PhotoListItem = ({ username, imageSource, id, location, profile, toggleFavorite, isFavorite, openModal }) => {
   return (
     <div className="photo-list__item">
-      <img src={imageSource} alt={`Photo by ${username}`} onClick={() => handleOpenModal({ username, imageSource, id, location, profile })} />
+      <PhotoFavButton isFavorite={isFavorite} toggleFavorite={toggleFavorite} className="fav-badge" />
+      <img src={imageSource} alt={`Photo by ${username}`} onClick={openModal} />
       <div className="photo-details">
-        <img src={profile} alt={`Profile picture of ${username}`} className="profile-picture" />
-        <div className="username">{username}</div>
-        <div className="location">{location}</div>
-        <div className="id">ID: {id}</div>
-        <PhotoFavButton photoId={id} />
+        <div className="user-info">
+          <img src={profile} alt={`Profile picture of ${username}`} className="profile-picture" />
+          <div className="user-details">
+            <div className="username">{username}</div>
+            <div className="location">{location}</div>
+          </div>
+        </div>
       </div>
     </div>
   );

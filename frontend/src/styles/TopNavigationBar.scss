@@ -1,9 +1,8 @@
 .top-nav-bar {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  padding: 8px;
   align-items: center;
+  padding: 8px;
   -webkit-box-shadow: 0 4px 6px -6px #222;
   -moz-box-shadow: 0 4px 6px -6px #222;
   box-shadow: 0 4px 6px -6px #222;
@@ -17,4 +16,34 @@
   color: #111;
   text-underline-position: auto;
   margin-left: 24px;
+}
+
+.top-nav-bar__center {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.top-nav-bar__right {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.fav-badge {
+  position: relative;
+}
+
+.fav-badge__count {
+  background-color: #c83535;
+  color: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
 }

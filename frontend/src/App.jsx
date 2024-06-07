@@ -24,7 +24,7 @@ const App = () => {
         <PhotoDetailsModal
           onClose={handleCloseModal}
           photo={selectedPhoto}
-          similarPhotos={[]}
+          similarPhotos={Object.values(selectedPhoto.similar_photos)}
         />
       )}
       <HomeRoute photos={photos} topics={topics} handleOpenModal={handleOpenModal} />

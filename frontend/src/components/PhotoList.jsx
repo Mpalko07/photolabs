@@ -3,7 +3,7 @@ import PhotoListItem from './PhotoListItem';
 import "../styles/PhotoList.scss";
 import { useFavourites } from '../routes/HomeRoute';
 
-const PhotoList = ({ photos, setDisplayModal }) => { 
+const PhotoList = ({ photos, setDisplayModal, handleOpenModal }) => { 
   const { favourites, toggleFavourite } = useFavourites();
 
   return (
@@ -17,8 +17,9 @@ const PhotoList = ({ photos, setDisplayModal }) => {
             location={`${photo.location.city}, ${photo.location.country}`}
             profile={photo.user.profile}
             toggleFavorite={() => toggleFavourite(photo.id)}
-            favourites={favourites}
-            setDisplayModal={setDisplayModal} 
+            isFavorite={favourites.includes(photo.id)}
+            setDisplayModal={setDisplayModal}
+            openModal={() => handleOpenModal(photo)}
           />
         </li>
       ))}

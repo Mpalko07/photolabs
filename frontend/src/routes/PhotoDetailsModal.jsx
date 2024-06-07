@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import closeSymbol from '../assets/closeSymbol.svg';
+import FavBadge from '../components/FavBadge';
 import '../styles/PhotoDetailsModal.scss';
 
-const PhotoDetailsModal = ({ onClose, photo, similarPhotos }) => {
+const PhotoDetailsModal = ({ onClose, photo, similarPhotos, handleFavoriteClick }) => {
   const [selectedSimilarPhoto, setSelectedSimilarPhoto] = useState(null);
 
   const handleSimilarPhotoClick = (photo) => {
     setSelectedSimilarPhoto(photo);
+  };
+
+  const handleFavouriteIconClick = () => {
+    if (photo) {
+      handleFavoriteClick(photo.id); // Pass the photo ID to the parent component
+    }
   };
 
   return (
@@ -17,16 +24,20 @@ const PhotoDetailsModal = ({ onClose, photo, similarPhotos }) => {
         </button>
         {/* Render the main photo */}
         {photo && (
-          <img className="photo-details-modal__image" src={photo.url} alt={photo.alt} />
+          <div className="photo-details">
+            <img className="photo-details__image" src={photo.urls.full} alt={photo.user.name} />
+            {/* Connect the FavBadge component to handle the favorite click */}
+            <FavBadge isFavPhotoExist={photo.isFavorite} onClick={handleFavouriteIconClick} />
+          </div>
         )}
         {/* Render similar photos */}
         <div className="photo-details-modal__images">
-          {similarPhotos.map((photo, index) => (
+          {similarPhotos.map((photo) => (
             <img
-              key={index}
+              key={photo.id}
               className="photo-details-modal__image"
-              src={photo.url}
-              alt={photo.alt}
+              src={photo.urls.regular}
+              alt={photo.user.name}
               onClick={() => handleSimilarPhotoClick(photo)}
             />
           ))}
@@ -36,8 +47,8 @@ const PhotoDetailsModal = ({ onClose, photo, similarPhotos }) => {
           <div className="photo-details-modal__similar-photo">
             <img
               className="photo-details-modal__image"
-              src={selectedSimilarPhoto.url}
-              alt={selectedSimilarPhoto.alt}
+              src={selectedSimilarPhoto.urls.full}
+              alt={selectedSimilarPhoto.suer}
             />
           </div>
         )}

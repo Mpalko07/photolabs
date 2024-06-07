@@ -3,7 +3,6 @@ import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton({ isFavorite, toggleFavorite }) {
-  // Function to handle click event
   const handleClick = () => {
     toggleFavorite();
   };
@@ -11,7 +10,7 @@ function PhotoFavButton({ isFavorite, toggleFavorite }) {
   return (
     <div className={`photo-list__fav-icon ${isFavorite ? 'active' : ''}`} onClick={handleClick}>
       <div className="photo-list__fav-icon-svg">
-        <FavIcon isFavorite={isFavorite} />
+        <FavIcon displayAlert={isFavorite} selected={isFavorite} />
       </div>
     </div>
   );

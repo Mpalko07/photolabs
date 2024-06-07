@@ -11,6 +11,7 @@ export const useFavourites = () => useContext(FavouritesContext);
 const HomeRoute = ({ photos, topics }) => {
   const [favourites, setFavourites] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const addFavourite = (photoId) => {
     setFavourites([...favourites, photoId]);
@@ -20,18 +21,34 @@ const HomeRoute = ({ photos, topics }) => {
     setFavourites(favourites.filter((id) => id !== photoId));
   };
 
-  const isFavPhotoExist = favourites.length > 0;
+  const toggleFavourite = (photoId) => {
+    if (favourites.includes(photoId)) {
+      removeFavourite(photoId);
+    } else {
+      addFavourite(photoId);
+    }
+  };
+
+  const handleOpenModal = (photo) => {
+    setSelectedPhoto(photo);
+    setDisplayModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setDisplayModal(false);
+    setSelectedPhoto(null);
+  };
 
   return (
     <div className="home-route">
-      <FavouritesContext.Provider value={{ favourites, addFavourite, removeFavourite }}>
+      <FavouritesContext.Provider value={{ favourites, toggleFavourite }}>
         <TopNavigationBar topics={topics} />
-        <PhotoList photos={photos} setDisplayModal={setDisplayModal} />
-        {displayModal && (
+        <PhotoList photos={photos} handleOpenModal={handleOpenModal} />
+        {displayModal && selectedPhoto && (
           <PhotoDetailsModal
-            onClose={() => setDisplayModal(false)}
-            photo={null}
-            similarPhotos={[]}
+            photo={selectedPhoto}
+            onClose={handleCloseModal}
+            similarPhotos={photos.filter(p => p.id !== selectedPhoto.id)}
           />
         )}
       </FavouritesContext.Provider>
