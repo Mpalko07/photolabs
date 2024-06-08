@@ -3,7 +3,7 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import FavBadge from '../components/FavBadge';
 import '../styles/PhotoDetailsModal.scss';
 
-const PhotoDetailsModal = ({ onClose, photo, similarPhotos, handleFavoriteClick, toggleFavourite, isFavourite }) => {
+const PhotoDetailsModal = ({ onClose, photo, similarPhotos, toggleFavourite, isFavourite }) => {
   const [selectedSimilarPhoto, setSelectedSimilarPhoto] = useState(null);
 
   const handleSimilarPhotoClick = (photo) => {
@@ -12,7 +12,7 @@ const PhotoDetailsModal = ({ onClose, photo, similarPhotos, handleFavoriteClick,
 
   const handleFavouriteIconClick = () => {
     if (photo) {
-      handleFavoriteClick(photo.id);
+      toggleFavourite(photo.id);
     }
   };
 
