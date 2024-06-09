@@ -1,8 +1,6 @@
 import { useReducer, useEffect } from 'react';
-import photos from '../mocks/photos';
-import topics from '../mocks/topics';
 
-/* insert app levels actions below */
+// Define action types
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
@@ -12,6 +10,7 @@ export const ACTIONS = {
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
 };
 
+// Reducer function to handle state changes
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.FAV_PHOTO_ADDED:
@@ -27,12 +26,12 @@ function reducer(state, action) {
     case ACTIONS.SET_PHOTO_DATA:
       return {
         ...state,
-        photos: action.photos,
+        photoData: action.payload,
       };
     case ACTIONS.SET_TOPIC_DATA:
       return {
         ...state,
-        topics: action.topics,
+        topicData: action.payload,
       };
     case ACTIONS.SELECT_PHOTO:
       return {
@@ -51,7 +50,9 @@ function reducer(state, action) {
   }
 }
 
+// Custom hook to manage application data
 const useApplicationData = () => {
+  // Initialize state using useReducer
   const [state, dispatch] = useReducer(reducer, {
     photos: [],
     topics: [],
@@ -60,12 +61,14 @@ const useApplicationData = () => {
     displayModal: false,
   });
 
+  // Effect to fetch photo data from the API
   useEffect(() => {
-    // Load initial data
-    dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos });
-    dispatch({ type: ACTIONS.SET_TOPIC_DATA, topics });
+    fetch("/api/photos")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
   }, []);
 
+  // Function to update favourite photo IDs
   const updateToFavPhotoIds = (photoId) => {
     if (state.favourites.includes(photoId)) {
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, photoId });
@@ -74,10 +77,12 @@ const useApplicationData = () => {
     }
   };
 
+  // Function to set selected photo
   const setPhotoSelected = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
   };
 
+  // Function to close photo details modal
   const onClosePhotoDetailsModal = () => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
   };
