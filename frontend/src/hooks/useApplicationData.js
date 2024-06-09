@@ -26,12 +26,12 @@ function reducer(state, action) {
     case ACTIONS.SET_PHOTO_DATA:
       return {
         ...state,
-        photoData: action.payload,
+        photos: action.payload,
       };
     case ACTIONS.SET_TOPIC_DATA:
       return {
         ...state,
-        topicData: action.payload,
+        topics: action.payload,
       };
     case ACTIONS.SELECT_PHOTO:
       return {
@@ -68,12 +68,12 @@ const useApplicationData = () => {
       .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
   }, []);
 
-    // Effect to fetch topic data from the API
-    useEffect(() => {
-      fetch("/api/topics")
-        .then((response) => response.json())
-        .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
-    }, []);
+  // Effect to fetch topic data from the API
+  useEffect(() => {
+    fetch("/api/topics")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
+  }, []);
 
   // Function to update favourite photo IDs
   const updateToFavPhotoIds = (photoId) => {
