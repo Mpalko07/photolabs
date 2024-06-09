@@ -68,6 +68,13 @@ const useApplicationData = () => {
       .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
   }, []);
 
+    // Effect to fetch topic data from the API
+    useEffect(() => {
+      fetch("/api/topics")
+        .then((response) => response.json())
+        .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
+    }, []);
+
   // Function to update favourite photo IDs
   const updateToFavPhotoIds = (photoId) => {
     if (state.favourites.includes(photoId)) {
