@@ -29,21 +29,3 @@
   align-items: center;
   margin-right: 24px;
 }
-
-.fav-badge {
-  position: relative;
-}
-
-.fav-badge__count {
-  background-color: #c83535;
-  color: #fff;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: -8px;
-  right: -8px;
-}
