@@ -2,15 +2,10 @@ import React from 'react';
 import FavIcon from './FavIcon';
 import '../styles/FavBadge.scss';
 
-const FavBadge = ({ isFavPhotoExist, count }) => {
+const FavBadge = ({ isFavPhotoExist, authorName, authorLocation, onClick }) => {
   return (
-    <div className='fav-badge'>
-      {isFavPhotoExist && (
-        <div className='fav-badge__count'>
-          <span>{count}</span>
-        </div>
-      )}
-      <FavIcon displayAlert={!!isFavPhotoExist} />
+    <div className="fav-badge" onClick={onClick}>
+      <FavIcon displayAlert={isFavPhotoExist} />
     </div>
   );
 };

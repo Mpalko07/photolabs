@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import closeSymbol from '../assets/closeSymbol.svg';
-import FavBadge from '../components/FavBadge';
+import PhotoFavButton from '../components/PhotoFavButton';
 import PhotoListItem from '../components/PhotoListItem';
 import '../styles/PhotoDetailsModal.scss';
 
 const PhotoDetailsModal = ({ onClose, photo, similarPhotos, toggleFavourite, isFavourite }) => {
   const [selectedSimilarPhoto, setSelectedSimilarPhoto] = useState(null);
+  const [updatedSimilarPhotos, setUpdatedSimilarPhotos] = useState(similarPhotos);
+
+  useEffect(() => {
+    setUpdatedSimilarPhotos(similarPhotos);
+  }, [similarPhotos]);
 
   const handleSimilarPhotoClick = (photo) => {
     setSelectedSimilarPhoto(photo);
@@ -17,17 +22,24 @@ const PhotoDetailsModal = ({ onClose, photo, similarPhotos, toggleFavourite, isF
     }
   };
 
+  const handleToggleFavourite = (photoId) => {
+    toggleFavourite(photoId);
+    setUpdatedSimilarPhotos(prevPhotos =>
+      prevPhotos.map(p => 
+        p.id === photoId ? { ...p, isFavorite: !p.isFavorite } : p
+      )
+    );
+  };
+
   return (
     <div className="modal">
       <div className="modal-content">
         <button className="photo-details-modal__close-button" onClick={onClose}>
           <img src={closeSymbol} alt="close symbol" />
         </button>
-        {/* Render the main photo */}
         {photo && (
           <div className="photo-details">
             <img className="photo-details__image" src={photo.urls.full} alt={photo.user.name} />
-            {/* Photographer info */}
             <div className="photo-details__info">
               <div className="photo-details__photographer">
                 <img
@@ -42,30 +54,29 @@ const PhotoDetailsModal = ({ onClose, photo, similarPhotos, toggleFavourite, isF
                   </div>
                 </div>
               </div>
-              {/* Connect the FavBadge component to handle the favorite click */}
-              <FavBadge isFavPhotoExist={photo.isFavorite} onClick={handleFavouriteIconClick} />
+              <PhotoFavButton isFavorite={isFavourite} toggleFavorite={handleFavouriteIconClick} />
             </div>
           </div>
         )}
-        {/* Render similar photos */}
         <div className="photo-details-modal__similar-section">
           <h2 className="photo-details-modal__header">Similar Photos</h2>
           <ul className="photo-details-modal__images">
-            {similarPhotos.map((photo) => (
+            {updatedSimilarPhotos.map((photo) => (
               <li key={photo.id} className="photo-details-modal__image-wrapper">
                 <PhotoListItem
                   id={photo.id}
-                  username={photo.user.username}
+                  username={photo.user.name}
                   imageSource={photo.urls.regular}
                   location={`${photo.location.city}, ${photo.location.country}`}
                   profile={photo.user.profile}
-                  onClick={() => handleSimilarPhotoClick(photo)}
+                  toggleFavorite={() => handleToggleFavourite(photo.id)}
+                  isFavorite={photo.isFavorite}
+                  openModal={() => handleSimilarPhotoClick(photo)}
                 />
               </li>
             ))}
           </ul>
         </div>
-        {/* Render selected similar photo */}
         {selectedSimilarPhoto && (
           <div className="photo-details-modal__similar-photo">
             <img
