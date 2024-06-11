@@ -5,8 +5,8 @@ The PhotoLabs project for the Web Development React course programming.
 Welcome to Photolabs where you can browse photos by category, like them and see other similar photos. 
 
 ![Photolabs](./docs/Photolabs.png)
-![Liked Photos](Liked.png)
-![Selected and Similar Photos](Modal.png)
+![Liked Photos](./docs/Liked.png)
+![Selected and Similar Photos](./docs/Modal.png)
 
 ## Setup
 
