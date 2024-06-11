@@ -13,7 +13,7 @@ const App = () => {
   } = useApplicationData();
 
   console.log('allPhoto', state.photos);
-  
+
   return (
     <div className="App">
       {state.displayModal && state.selectedPhoto && (
