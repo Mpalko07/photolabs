@@ -4,7 +4,7 @@ import PhotoFavButton from '../components/PhotoFavButton';
 import PhotoListItem from '../components/PhotoListItem';
 import '../styles/PhotoDetailsModal.scss';
 
-const PhotoDetailsModal = ({ onClose, photo, similarPhotos, toggleFavourite, isFavourite }) => {
+const PhotoDetailsModal = ({ onClose, photo, similarPhotos, toggleFavourite, isFavourite, favourites }) => {
   const [selectedSimilarPhoto, setSelectedSimilarPhoto] = useState(null);
   const [updatedSimilarPhotos, setUpdatedSimilarPhotos] = useState(similarPhotos);
 
@@ -70,7 +70,7 @@ const PhotoDetailsModal = ({ onClose, photo, similarPhotos, toggleFavourite, isF
                   location={`${photo.location.city}, ${photo.location.country}`}
                   profile={photo.user.profile}
                   toggleFavorite={() => handleToggleFavourite(photo.id)}
-                  isFavorite={photo.isFavorite}
+                  isFavorite={favourites.includes(photo.id)}
                   openModal={() => handleSimilarPhotoClick(photo)}
                 />
               </li>

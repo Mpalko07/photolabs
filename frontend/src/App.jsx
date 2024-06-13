@@ -20,6 +20,7 @@ const App = () => {
           photo={state.selectedPhoto}
           similarPhotos={state.photos.filter(p => p.id !== state.selectedPhoto.id)}
           toggleFavourite={updateToFavPhotoIds}
+          favourites={state.favourites}
           isFavourite={state.favourites.includes(state.selectedPhoto.id)}
         />
       )}
